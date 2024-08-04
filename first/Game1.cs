@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -14,19 +15,32 @@ public class Game1 : Game
     private SpriteBatch _spriteBatch;
     int deadZone;
 
-    private Vector2 ToBoundedPosition() =>
-        ballPosition switch
+    private Vector2 ToBoundedPosition()
+    {
+        float maxRightPosition = _graphics.PreferredBackBufferWidth - ballTexture.Width / 2;
+        float maxLeftPosition = ballTexture.Width / 2;
+        float maxBottomPosition = _graphics.PreferredBackBufferHeight - ballTexture.Height / 2;
+        float maxTopPosition = ballTexture.Height / 2;
+
+        float newX = ballPosition.X switch
         {
-            { X: var x } when x > (_graphics.PreferredBackBufferWidth - ballTexture.Width / 2) =>
-                new Vector2(_graphics.PreferredBackBufferWidth - ballTexture.Width / 2, ballPosition.Y),
-            { X: var x } when x < ballTexture.Width / 2 =>
-                new Vector2(ballTexture.Width / 2, ballPosition.Y),
-            { Y: var y } when y > _graphics.PreferredBackBufferHeight - ballTexture.Height / 2 =>
-            new Vector2(ballPosition.X, _graphics.PreferredBackBufferHeight - ballTexture.Height / 2),
-            { Y: var y } when y < ballTexture.Height / 2 =>
-                new Vector2(ballPosition.X, ballTexture.Height / 2),
-            _ => ballPosition
+            // doesn't seem to works, wants constant
+            // > maxRightPosition => maxRightPosition,
+            // REMARK: floor function would be better but I want to play with pattern matching :D
+            var x when x > maxRightPosition => maxRightPosition,
+            var x when x < maxLeftPosition => maxLeftPosition,
+            _ => ballPosition.X
         };
+
+        float newY = ballPosition.Y switch
+        {
+            var y when y > maxBottomPosition => maxBottomPosition,
+            var y when y < maxTopPosition => maxTopPosition,
+            _ => ballPosition.Y
+        };
+
+        return new Vector2(newX, newY);
+    }
 
     public Game1()
     {

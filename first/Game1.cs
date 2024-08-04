@@ -14,6 +14,20 @@ public class Game1 : Game
     private SpriteBatch _spriteBatch;
     int deadZone;
 
+    private Vector2 ToBoundedPosition() =>
+        ballPosition switch
+        {
+            { X: var x } when x > (_graphics.PreferredBackBufferWidth - ballTexture.Width / 2) =>
+                new Vector2(_graphics.PreferredBackBufferWidth - ballTexture.Width / 2, ballPosition.Y),
+            { X: var x } when x < ballTexture.Width / 2 =>
+                new Vector2(ballTexture.Width / 2, ballPosition.Y),
+            { Y: var y } when y > _graphics.PreferredBackBufferHeight - ballTexture.Height / 2 =>
+            new Vector2(ballPosition.X, _graphics.PreferredBackBufferHeight - ballTexture.Height / 2),
+            { Y: var y } when y < ballTexture.Height / 2 =>
+                new Vector2(ballPosition.X, ballTexture.Height / 2),
+            _ => ballPosition
+        };
+
     public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -103,23 +117,7 @@ public class Game1 : Game
         }
 
         // Boundary check
-        if (ballPosition.X > _graphics.PreferredBackBufferWidth - ballTexture.Width / 2)
-        {
-            ballPosition.X = _graphics.PreferredBackBufferWidth - ballTexture.Width / 2;
-        }
-        else if (ballPosition.X < ballTexture.Width / 2)
-        {
-            ballPosition.X = ballTexture.Width / 2;
-        }
-
-        if (ballPosition.Y > _graphics.PreferredBackBufferHeight - ballTexture.Height / 2)
-        {
-            ballPosition.Y = _graphics.PreferredBackBufferHeight - ballTexture.Height / 2;
-        }
-        else if (ballPosition.Y < ballTexture.Height / 2)
-        {
-            ballPosition.Y = ballTexture.Height / 2;
-        }
+        ballPosition = ToBoundedPosition();
 
         base.Update(gameTime);
     }

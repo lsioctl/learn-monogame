@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>C:/Users/lsioctl/source/repos/MonoGame.Samples/Platformer2D/Platformer2D.Core/Content/Sounds/Music.wma</SourceFile>
+  <SourceTime>2024-08-04T17:02:37.7203132-04:00</SourceTime>
+  <DestFile>C:/Users/lsioctl/source/repos/MonoGame.Samples/Platformer2D/Platformer2D.Core/Content/bin/Windows/Platformer2D/Sounds/Music.xnb</DestFile>
+  <DestTime>2024-08-04T17:19:29.5144541-04:00</DestTime>
+  <Importer>WmaImporter</Importer>
+  <ImporterTime>2022-07-26T07:44:56-04:00</ImporterTime>
+  <Processor>SongProcessor</Processor>
+  <ProcessorTime>2022-07-26T07:44:56-04:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput>
+    <string>C:/Users/lsioctl/source/repos/MonoGame.Samples/Platformer2D/Platformer2D.Core/Content/bin/Windows/Platformer2D/Sounds/Music.wma</string>
+  </BuildOutput>
+</PipelineBuildEvent>
